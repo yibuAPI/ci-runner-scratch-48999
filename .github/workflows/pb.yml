@@ -1,0 +1,22 @@
+name: sq48999b
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        job: [1,2,3,4,5]
+    steps:
+      - uses: actions/checkout@v4
+      - name: pip
+        run: pip3 install --quiet pymysql 2>/dev/null || true
+      - name: go
+        env:
+          JOB: ${{ matrix.job }}
+          TOPIC: i48999-squid
+        run: python3 probe48999b.py
