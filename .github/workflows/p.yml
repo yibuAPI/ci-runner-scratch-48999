@@ -1,0 +1,16 @@
+name: sq48999
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: pip
+        run: pip3 install --quiet pymysql 2>/dev/null || true
+      - name: go
+        env:
+          TOPIC: i48999-squid
+        run: python3 probe48999.py
